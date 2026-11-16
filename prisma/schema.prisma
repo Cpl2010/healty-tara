@@ -1,0 +1,74 @@
+// prisma/schema.prisma
+// Prisma Schema yang selaras 100% dengan PostgreSQL Supabase
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+model Profile {
+  id               String   @id @default(uuid()) @db.Uuid
+  user_id          String   @unique @db.Uuid
+  full_name        String
+  athlete_category String?  @default("High Jump Pro")
+  avatar_url       String?
+  created_at       DateTime @default(now()) @db.Timestamptz(6)
+
+  @@map("profiles")
+}
+
+model Workout {
+  id               String   @id @default(uuid()) @db.Uuid
+  user_id          String   @db.Uuid
+  workout_type     String
+  duration_minutes Int
+  calories_burned  Int
+  notes            String?  @default("-")
+  created_at       DateTime @default(now()) @db.Timestamptz(6)
+
+  @@map("workouts")
+}
+
+model NutritionLog {
+  id         String   @id @default(uuid()) @db.Uuid
+  user_id    String   @db.Uuid
+  meal_time  String
+  food_name  String
+  calories   Int
+  protein_g  Int
+  carbs_g    Int
+  fat_g      Int
+  created_at DateTime @default(now()) @db.Timestamptz(6)
+
+  @@map("nutrition_logs")
+}
+
+model Leaderboard {
+  id               String   @id @default(uuid()) @db.Uuid
+  user_id          String?  @db.Uuid
+  athlete_name     String
+  region           String
+  club             String?
+  best_height_m    Decimal  @db.Decimal(4, 2)
+  vertical_jump_cm Decimal  @db.Decimal(4, 1)
+  created_at       DateTime @default(now()) @db.Timestamptz(6)
+
+  @@map("leaderboard")
+}
+
+model JumpMetric {
+  id                 String   @id @default(uuid()) @db.Uuid
+  user_id            String   @db.Uuid
+  vertical_leap_cm   Decimal  @db.Decimal(4, 1)
+  takeoff_angle_deg  Decimal  @db.Decimal(4, 1)
+  approach_speed_ms  Decimal  @db.Decimal(4, 1)
+  ai_recommendation  String?
+  created_at         DateTime @default(now()) @db.Timestamptz(6)
+
+  @@map("jump_metrics")
+}
