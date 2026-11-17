@@ -1,8 +1,7 @@
 {
-  "/_not-found/page": "app/_not-found/page.js",
-  "/ai-vision/page": "app/ai-vision/page.js",
-  "/dashboard/page": "app/dashboard/page.js",
-  "/comparison/page": "app/comparison/page.js",
   "/page": "app/page.js",
-  "/nutrition/page": "app/nutrition/page.js"
+  "/ai-vision/page": "app/ai-vision/page.js",
+  "/comparison/page": "app/comparison/page.js",
+  "/nutrition/page": "app/nutrition/page.js",
+  "/dashboard/page": "app/dashboard/page.js"
 }

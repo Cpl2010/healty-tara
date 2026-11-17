@@ -2,19 +2,23 @@
 
 import React from "react";
 import { useAuth } from "@/context/AuthContext";
-import { MetricsGrid } from "@/components/dashboard/MetricsGrid";
+import { DashboardStats } from "@/components/dashboard/DashboardStats";
+import { QuickWorkoutCard } from "@/components/dashboard/QuickWorkoutCard";
 import { AiCoachInsights } from "@/components/dashboard/AiCoachInsights";
 import { ProgressChart } from "@/components/dashboard/ProgressChart";
 import { WorkoutLogger } from "@/components/dashboard/WorkoutLogger";
 import { ExportPdfButton } from "@/components/shared/ExportPdfButton";
-import { Award, Sparkles, Dumbbell } from "lucide-react";
+import { Award, Sparkles } from "lucide-react";
 import Link from "next/link";
 
 export default function DashboardPage() {
   const { user } = useAuth();
   const athleteName =
-    user?.user_metadata?.full_name ||
-    (user?.email ? user.email.split("@")[0] : "Raihan Pratama");
+    typeof user?.user_metadata?.full_name === "string"
+      ? user.user_metadata.full_name
+      : typeof user?.email === "string"
+        ? user.email.split("@")[0]
+        : "Raihan Pratama";
 
   return (
     <div className="space-y-6 animate-in fade-in duration-300">
@@ -27,11 +31,13 @@ export default function DashboardPage() {
               <Award className="w-3.5 h-3.5" /> Dashboard Atlet High Jump Pro
             </div>
             <h1 className="text-2xl md:text-3xl font-extrabold tracking-tight text-white">
-              Selamat Datang Kembali, <span className="text-cyan-400">{athleteName}</span>!
+              Selamat Datang Kembali,{" "}
+              <span className="text-cyan-400">{athleteName}</span>!
             </h1>
             <p className="text-slate-300 text-xs sm:text-sm mt-1 max-w-xl">
-              AI Analytics mendeteksi peningkatan tinggi lompatan vertikal sebesar +4.2cm bulan ini.
-              Pertahankan konsistensi sudut take-off dan kecepatan awalan Anda!
+              AI Analytics mendeteksi peningkatan tinggi lompatan vertikal
+              sebesar +4.2cm bulan ini. Pertahankan konsistensi sudut take-off
+              dan kecepatan awalan Anda!
             </p>
           </div>
 
@@ -47,8 +53,11 @@ export default function DashboardPage() {
         </div>
       </div>
 
-      {/* Grid Metrik Utama */}
-      <MetricsGrid />
+      {/* Grid Metrik Utama Tersinkronisasi Supabase */}
+      <DashboardStats />
+
+      {/* Quick Workout Logger Card */}
+      <QuickWorkoutCard />
 
       {/* AI Insights & Progress Chart */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
@@ -57,7 +66,7 @@ export default function DashboardPage() {
           <ProgressChart />
         </div>
 
-        {/* Workout Logger Widget */}
+        {/* Detailed Workout Logger & GPS History */}
         <div className="lg:col-span-1 space-y-6">
           <WorkoutLogger />
         </div>

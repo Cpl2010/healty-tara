@@ -5,7 +5,7 @@ import { Navbar } from "@/components/shared/Navbar";
 import { Toaster } from "sonner";
 
 export const metadata: Metadata = {
-  title: "AI HighJump & Sports Pro | Biomechanics & Analytics Suite",
+  title: "HighJump Pro — Analisis Lompat Tinggi & Pelacakan Atlet",
   description:
     "Aplikasi Analisis Video & Kinematika Lompat Tinggi, MediaPipe Pose Estimation, Ghost Overlay & Database Supabase",
 };
@@ -30,7 +30,8 @@ export default function RootLayout({
           {/* Global Footer */}
           <footer className="mt-auto border-t border-slate-800 bg-slate-950/80 py-4 text-center text-xs text-slate-500">
             <p>
-              &copy; 2026 AI HighJump & Sports Pro. Dikembangkan untuk Ujian Akhir Semester (UAS).
+              &copy; 2026 AI HighJump & Sports Pro. Dikembangkan untuk Ujian
+              Akhir Semester (UAS).
             </p>
           </footer>
 
